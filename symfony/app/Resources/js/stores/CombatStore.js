@@ -14,7 +14,8 @@ class CombatStore {
         setTimeout(() => this.syncCacheToState(), 1);
 
         this.exportPublicMethods({
-            addPlayer: this.addPlayer.bind(this)
+            addPlayer: this.addPlayer.bind(this),
+            removePlayer: this.removePlayer.bind(this),
         });
     }
 
@@ -38,6 +39,20 @@ class CombatStore {
 
         combat.push(newPlayer);
 
+        this.setState({
+            combat
+        });
+
+        Cache.set('players', combat, 60000);
+    }
+
+    removePlayer(username) {
+        let { combat } = this.state;
+
+        combat = combat.filter((player, i) => {
+            return player.name !== username;
+        });
+        
         this.setState({
             combat
         });

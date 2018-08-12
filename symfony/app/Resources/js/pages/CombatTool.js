@@ -12,11 +12,13 @@ class CombatTool extends React.Component {
             name: '',
             initiative: 0,
         };
-
-        this.onAddPlayer = this.onAddPlayer.bind(this);
     }
 
-    onAddPlayer(e) {
+    onRemovePlayer = (playerName) => {
+        CombatStore.removePlayer(playerName);
+    };
+
+    onAddPlayer = (e) => {
         CombatStore.addPlayer(this.state.name, this.state.initiative);
 
         this.setState({
@@ -41,7 +43,12 @@ class CombatTool extends React.Component {
                             this.props.combat.sort((a, b) => {
                                 return parseInt(a.initiative) < parseInt(b.initiative);
                             }).map((player, i) => {
-                                return <li key={i} className="list-group-item">{player.name} ({player.initiative})</li>;
+                                return <li key={i} className="list-group-item">
+                                    {player.name} ({player.initiative})
+                                    <button onClick={(e) => this.onRemovePlayer(player.name)} className="btn btn-xs btn-outline-danger pull-right">
+                                        <i className="fa fa-trash-o"/>
+                                    </button>
+                                </li>;
                             })
                         }
                     </ul>
