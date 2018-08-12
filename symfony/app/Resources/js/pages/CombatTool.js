@@ -14,6 +14,10 @@ class CombatTool extends React.Component {
         };
     }
 
+    onStartCombat = (e) => {
+        CombatStore.startCombat();
+    };
+
     onRemovePlayer = (playerName) => {
         CombatStore.removePlayer(playerName);
     };
@@ -29,7 +33,7 @@ class CombatTool extends React.Component {
 
     render() {
         if (this.props.combatStarted) {
-            // todo combat page
+            return null;
         }
 
         return <div className="row">
@@ -85,6 +89,8 @@ class CombatTool extends React.Component {
                         </div>
 
                         <button type="submit" onClick={this.onAddPlayer} className="btn btn-primary">Add player</button>
+
+                        <button type="submit" onClick={this.onStartCombat} className="pull-right btn btn-warning">Start combat</button>
 
                     </div>
                 </div>

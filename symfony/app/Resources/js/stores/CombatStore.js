@@ -16,6 +16,7 @@ class CombatStore {
         this.exportPublicMethods({
             addPlayer: this.addPlayer.bind(this),
             removePlayer: this.removePlayer.bind(this),
+            startCombat: this.startCombat.bind(this),
         });
     }
 
@@ -28,6 +29,12 @@ class CombatStore {
             });
         }
     };
+
+    startCombat() {
+        this.setState({
+            combatStarted: true
+        });
+    }
 
     addPlayer(username, initiative) {
         let newPlayer = {
@@ -52,7 +59,7 @@ class CombatStore {
         combat = combat.filter((player, i) => {
             return player.name !== username;
         });
-        
+
         this.setState({
             combat
         });
