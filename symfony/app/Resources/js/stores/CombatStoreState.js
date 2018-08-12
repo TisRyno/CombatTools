@@ -27,4 +27,4 @@ let CombatStoreState = ComposedComponent => class extends React.Component {
     }
 };
 
-export default CombatStoreState;
+module.exports = CombatStoreState;

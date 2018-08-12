@@ -31,7 +31,23 @@ class CombatTool extends React.Component {
         }
 
         return <div className="row">
-            <div className="col">
+            <div className="col-12 col-sm-4">
+                <div className="card">
+                    <ul className="list-group list-group-flush">
+                        {this.props.combat.length === 0 &&
+                            <li className="list-group-item">No players added</li>
+                        }
+                        {this.props.combat.length > 0 &&
+                            this.props.combat.sort((a, b) => {
+                                return parseInt(a.initiative) < parseInt(b.initiative);
+                            }).map((player, i) => {
+                                return <li key={i} className="list-group-item">{player.name} ({player.initiative})</li>;
+                            })
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div className="col-12 col-sm-8">
                 <div className="card">
                     <div className="card-body">
 
@@ -70,4 +86,4 @@ class CombatTool extends React.Component {
     }
 }
 
-export default CombatStoreState(CombatTool);
+module.exports = CombatStoreState(CombatTool);

@@ -36,15 +36,15 @@ let config = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                // use: 'babel-loader',
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['react']
-                        }
-                    }
-                ],
+                use: 'babel-loader',
+                // use: [
+                //     {
+                //         loader: 'babel-loader',
+                //         options: {
+                //             presets: ['react']
+                //         }
+                //     }
+                // ],
             },
             {
                 test: /\.s?css$/,
@@ -103,12 +103,7 @@ let config = {
             }),
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'vendor',
-                minChunks: function(module,count) {
-                    if (module.resource) {
-                        if (module.resource.indexOf("jquery") >= 0 || module.resource.indexOf("magnific-popup") >= 0) {
-                            return false;
-                        }
-                    }
+                minChunks: function(module, count) {
                     return count >= 2;
                 },
             }),

@@ -18,7 +18,6 @@
     "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.4.0",
     "babelify": "7.x",
-    "bootstrap": "^4.1.0",
     "browserify": "13.x",
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -56,12 +55,12 @@
     "babel": "5.x",
     "babel-cli": "^6.5.1",
     "babel-preset-es2015": "^6.5.0",
-    "babel-preset-react": "^6.24.1",
+    "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "body-parser": "^1.17.1",
+    "bootstrap": "^4.1.0",
     "chosen-npm": "^1.4.2",
     "create-react-class": "^15.5.2",
-    "emoji-flags": "^1.2.0",
     "enquire.js": "^2.1.6",
     "express": "^4.15.2",
     "fastclick": "^1.0.6",
@@ -71,7 +70,6 @@
     "gulp-util": "^3.0.8",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
-    "jquery": "^3.2.1",
     "jstz": "^1.0.9",
     "ls-cache": "^0.2.3",
     "lucene-query-parser": "^1.2.0",
@@ -108,8 +106,6 @@
     "scrollmagic": "^2.0.5",
     "smoothscroll": "^0.3.0",
     "swiper": "^3.4.2",
-    "tiny-cookie": "^1.0.1",
-    "video.js": "^5.19.2",
-    "videojs-font": "^2.0.0"
+    "tiny-cookie": "^1.0.1"
   }
 }

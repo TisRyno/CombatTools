@@ -10,7 +10,23 @@ class CombatStore {
             combatStarted: false,
             combat: []
         };
+
+        setTimeout(() => this.syncCacheToState(), 1);
+
+        this.exportPublicMethods({
+            addPlayer: this.addPlayer.bind(this)
+        });
     }
+
+    syncCacheToState = () => {
+        let players = Cache.get('players');
+
+        if (players) {
+            this.setState({
+                combat: players
+            });
+        }
+    };
 
     addPlayer(username, initiative) {
         let newPlayer = {
@@ -25,13 +41,15 @@ class CombatStore {
         this.setState({
             combat
         });
+
+        Cache.set('players', combat, 60000);
     }
 }
 
-let store = alt.createStore(new CombatStore, 'CombatStore');
+let store = alt.createStore(CombatStore, 'CombatStore');
 
 // if (typeof window !== "undefined" && typeof window.personalised !== 'undefined') {
 //     store.setupPersonalisedProduct(window.personalised);
 // }
 
-export default store;
+module.exports = store;
