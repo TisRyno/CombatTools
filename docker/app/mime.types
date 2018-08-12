@@ -1,0 +1,335 @@
+# This is a comment. I love comments.		    -*- indent-tabs-mode: t -*-
+
+# This file controls what Internet media types are sent to the client for
+# given file extension(s).  Sending the correct media type to the client
+# is important so they know how to handle the content of the file.
+# Extra types can either be added here or by using an AddType directive
+# in your config files. For more information about Internet media types,
+# please read RFC 2045, 2046, 2047, 2048, and 2077.  The Internet media type
+# registry is at <http://www.iana.org/assignments/media-types/>.
+
+# IANA types
+
+# MIME type					Extensions
+# js: text/javascript (obsolete) for browser support for now
+application/javascript
+application/json				json
+application/lost+xml				lostxml
+# mp4, mpg4: video/mp4, see RFC 4337
+application/mp4
+application/mpeg4-generic
+application/mpeg4-iod
+application/mpeg4-iod-xmt
+application/msword				doc
+application/mxf					mxf
+application/nasdata
+application/nss
+application/ocsp-request			orq
+application/ocsp-response			ors
+application/octet-stream		bin lha lzh exe class so dll img iso
+application/oda					oda
+application/oebps-package+xml			opf
+application/ogg					ogx
+# sms: application/vnd.3gpp2.sms
+application/vnd.3gpp.sms
+application/vnd.3gpp2.bcmcsinfo+xml
+application/vnd.3gpp2.sms			sms
+application/vnd.3gpp2.tcap			tcap
+application/vnd.amiga.ami			ami
+application/vnd.anser-web-certificate-issue-initiation	cii
+# Not in IANA listing, but is on FTP site?
+application/vnd.anser-web-funds-transfer-initiation	fti
+application/vnd.apple.mpegurl			m3u8
+application/vnd.businessobjects			rep
+application/vnd.cab-jscript
+application/xhtml+xml				xhtml xhtm xht
+application/xml
+application/xml-dtd				dtd
+application/xml-external-parsed-entity
+application/xmpp+xml
+application/xop+xml				xop
+application/zip					zip
+# 3gp, 3gpp: video/3gpp
+audio/3gpp
+# 3g2, 3gpp2: video/3gpp2
+audio/3gpp2
+audio/ac3					ac3
+audio/AMR					amr
+audio/AMR-WB					awb
+audio/amr-wb+
+# aa3, omg: audio/ATRAC3
+audio/ATRAC-ADVANCED-LOSSLESS			aal
+# aa3, omg: audio/ATRAC3
+audio/ATRAC-X					atx
+audio/ATRAC3					at3 aa3 omg
+audio/basic					au snd
+audio/dls					dls
+audio/EVRC					evc
+# wav: audio/wav
+audio/L16					l16
+audio/mobile-xmf				mxmf
+# mp4, mpg4: video/mp4, see RFC 4337
+audio/mp4
+audio/MP4A-LATM
+audio/MPA
+audio/mpa-robust
+audio/mpeg					mpga mp1 mp2 mp3
+audio/mpeg4-generic
+audio/ogg					oga ogg spx
+audio/parityfec
+audio/PCMA
+audio/PCMA-WB
+audio/PCMU
+audio/PCMU-WB
+audio/prs.sid					sid psid
+audio/qcelp					qcp
+audio/RED
+audio/rtp-enc-aescm128
+audio/rtp-midi
+audio/rtx
+audio/SMV					smv
+# qcp: audio/qcelp, see RFC 3625
+audio/SMV-QCP
+audio/SMV0
+# wav: audio/wav, cpt: application/mac-compactpro
+audio/vnd.dts					dts
+audio/vnd.dts.hd				dtshd
+audio/vnd.everad.plj				plj
+# rm: audio/x-pn-realaudio
+audio/vnd.hns.audio
+audio/vnd.lucent.voice				lvp
+audio/vnd.ms-playready.media.pya		pya
+# audio/vnd.qcelp deprecated in favour of audio/qcelp
+audio/vnd.rhetorex.32kadpcm
+audio/vnd.sealedmedia.softseal.mpeg		smp3 smp s1m
+audio/vnd.vmx.cvsd
+audio/vorbis
+audio/vorbis-config
+image/cgm
+image/fits					fits fit fts
+image/g3fax
+image/gif					gif
+image/ief					ief
+image/jp2					jp2 jpg2
+image/jpeg					jpeg jpg jpe jfif
+image/jpm					jpm jpgm
+image/jpx					jpx jpf
+image/naplps
+image/png					png
+image/prs.btif					btif btf
+image/prs.pti					pti
+image/t38					t38
+image/tiff					tiff tif
+image/tiff-fx					tfx
+image/vnd.adobe.photoshop			psd
+image/vnd.cns.inf2
+image/vnd.djvu					djvu djv
+image/vnd.dwg
+image/vnd.dxf					dxf
+image/vnd.fastbidsheet				fbs
+image/vnd.fpx					fpx
+image/vnd.fst					fst
+image/vnd.fujixerox.edmics-mmr			mmr
+image/vnd.fujixerox.edmics-rlc			rlc
+image/vnd.globalgraphics.pgb			pgb
+image/vnd.microsoft.icon			ico
+image/vnd.mix
+image/vnd.ms-modi				mdi
+image/vnd.net-fpx
+image/vnd.radiance				hdr rgbe xyze
+image/vnd.sealed.png				spng spn s1n
+image/vnd.sealedmedia.softseal.gif		sgif sgi s1g
+image/vnd.sealedmedia.softseal.jpg		sjpg sjp s1j
+image/vnd.svf
+image/vnd.wap.wbmp				wbmp
+image/vnd.xiff					xif
+message/CPIM
+message/delivery-status
+message/disposition-notification
+message/external-body
+message/global					u8msg
+message/global-delivery-status			u8dsn
+message/global-disposition-notification		u8mdn
+message/global-headers				u8hdr
+message/http
+# cl: application/simple-filter+xml
+message/imdn+xml
+# message/news obsoleted by message/rfc822
+message/partial
+message/rfc822					eml mail art
+message/s-http
+message/sip
+message/sipfrag
+message/tracking-status
+message/vnd.si.simp
+model/iges					igs iges
+model/mesh					msh mesh silo
+model/vnd.dwf					dwf
+# 3dml, 3dm: text/vnd.in3d.3dml
+model/vnd.flatland.3dml
+model/vnd.gdl					gdl gsm win dor lmp rsm msm ism
+model/vnd.gs-gdl
+model/vnd.gtw					gtw
+model/vnd.moml+xml				moml
+model/vnd.mts					mts
+model/vnd.parasolid.transmit.binary		x_b xmt_bin
+model/vnd.parasolid.transmit.text		x_t xmt_txt
+model/vnd.vtu					vtu
+model/vrml					wrl vrml
+multipart/alternative
+multipart/appledouble
+multipart/byteranges
+multipart/digest
+multipart/encrypted
+multipart/form-data
+multipart/header-set
+multipart/mixed
+multipart/parallel
+multipart/related
+multipart/report
+multipart/signed
+multipart/voice-message				vpm
+text/calendar					ics ifb
+text/css					css
+text/csv					csv
+text/directory
+text/dns					soa zone
+# text/ecmascript obsoleted by application/ecmascript
+text/enriched
+text/html					html htm
+# obsoleted by application/javascript
+text/javascript					js
+text/parityfec
+text/plain				asc txt text pm el c h cc hh cxx hxx f90
+text/prs.fallenstein.rst			rst
+text/prs.lines.tag				tag dsc
+text/RED
+text/rfc822-headers
+text/richtext					rtx
+# rtf: application/rtf
+text/rtf
+text/rtp-enc-aescm128
+text/rtx
+text/sgml					sgml sgm
+text/t140
+text/tab-separated-values			tsv
+text/troff
+text/ulpfec
+text/uri-list					uris uri
+text/vnd.abc					abc
+# curl: application/vnd.curl
+text/vnd.curl
+text/vnd.DMClientScript				dms
+text/vnd.esmertec.theme-descriptor		jtd
+text/vnd.fly					fly
+text/vnd.fmi.flexstor				flx
+text/vnd.graphviz				gv dot
+text/vnd.in3d.3dml				3dml 3dm
+text/vnd.in3d.spot				spot spo
+text/vnd.ms-mediapackage			mpf
+text/vnd.net2phone.commcenter.command		ccc
+text/vnd.si.uricatalogue			uric
+text/vnd.sun.j2me.app-descriptor		jad
+text/vnd.trolltech.linguist			ts
+text/vnd.wap.si					si
+text/vnd.wap.sl					sl
+text/vnd.wap.wml				wml
+text/vnd.wap.wmlscript				wmls
+text/xml					xml
+text/xml-external-parsed-entity			ent
+video/3gpp					3gp 3gpp
+video/3gpp2					3g2 3gpp2
+video/3gpp-tt
+video/mj2					mj2 mjp2
+video/mp4					mp4 mpg4
+video/mpeg					mpeg mpg mpe
+video/mpeg4-generic
+video/MPV
+video/nv
+video/ogg					ogv
+video/parityfec
+video/pointer
+video/quicktime					qt mov
+video/raw
+video/rtp-enc-aescm128
+video/rtx
+video/SMPTE292M
+video/ulpfec
+video/vc1
+video/vnd.CCTV
+video/vnd.dlna.mpeg-tts
+video/vnd.fvt					fvt
+# rm: audio/x-pn-realaudio
+video/vnd.mpegurl				mxu m4u
+# mp4: video/mp4
+video/vnd.objectvideo
+video/vnd.sealed.mpeg1				smpg s11
+# smpg: video/vnd.sealed.mpeg1
+video/vnd.sealed.mpeg4				s14
+video/vnd.sealed.swf				sswf ssw
+video/vnd.sealedmedia.softseal.mov		smov smo s1q
+video/vnd.vivo
+
+# Non-IANA types
+
+application/mac-compactpro			cpt
+application/mathml+xml				mml
+application/metalink+xml			metalink
+application/rss+xml				rss
+application/x-bcpio				bcpio
+application/x-bittorrent			torrent
+application/x-bzip2				bz2
+application/x-cdlink				vcd
+application/x-chess-pgn				pgn
+application/x-cpio				cpio
+application/x-gzip				gz tgz
+application/x-hdf				hdf
+application/x-java-archive			jar
+application/x-latex				latex
+application/x-netcdf				nc cdf
+application/x-perl				pl
+application/x-rpm				rpm
+application/x-sh				sh
+application/x-shar				shar
+application/x-shockwave-flash			swf
+application/x-tar				tar
+application/x-tex				tex
+application/x-texinfo				texinfo texi
+application/x-ustar				ustar
+application/x-wais-source			src
+application/x-xz				xz
+audio/midi					mid midi kar
+audio/x-aiff					aif aiff aifc
+audio/x-mod					mod ult uni m15 mtm 669 med
+audio/x-mpegurl					m3u
+audio/x-ms-wax					wax
+audio/x-ms-wma					wma
+audio/x-pn-realaudio				ram rm
+audio/x-realaudio				ra
+audio/x-s3m					s3m
+audio/x-stm					stm
+audio/x-wav					wav
+chemical/x-xyz					xyz
+image/bmp					bmp
+image/svg+xml					svg svgz
+image/x-cmu-raster				ras
+image/x-rgb					rgb
+image/x-targa					tga
+image/x-xbitmap					xbm
+image/x-xpixmap					xpm
+image/x-xwindowdump				xwd
+text/cache-manifest				manifest
+text/x-pod					pod
+text/x-setext					etx
+text/x-vcard					vcf
+video/webm					webm
+video/x-flv					flv
+video/x-ms-asf					asx
+video/x-ms-wm					wm
+video/x-ms-wmv					wmv
+video/x-ms-wmx					wmx
+video/x-ms-wvx					wvx
+video/x-msvideo					avi
+video/x-sgi-movie				movie
+x-conference/x-cooltalk				ice
+x-epoc/x-sisx-app				sisx

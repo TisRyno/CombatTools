@@ -1,0 +1,60 @@
+FROM centos:6.9
+
+MAINTAINER Tech Corner <tech_corner@firebox.com>
+
+RUN  rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm \
+    && rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
+
+COPY nginx.repo /etc/yum.repos.d/nginx.repo
+
+RUN yum -y update \
+    && yum -y install php71w php71w-opcache php71w-devel \
+    php71w-cli php71w-pdo php71w-pear php71w-mcrypt php71w-xml \
+    php71w-gd php71w-mbstring php71w-bcmath php71w-mysqlnd \
+    php71w-soap php71w-process php71w-pecl-redis php71w-pecl-imagick \
+    \
+    php71w-fpm \
+    nginx \
+    python-setuptools \
+    && yum clean all \
+    && easy_install supervisor \
+    && /usr/bin/echo_supervisord_conf > /etc/supervisord.conf \
+    && mkdir -p /var/log/supervisor
+
+RUN echo 'export PS1="[\u@docker] \W # "' >> /root/.bash_profile
+RUN echo 'daemon off;' >> /etc/nginx/nginx.conf
+
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
+
+COPY php-fpm-www.conf /usr/local/etc/php-fpm.d/php-fpm-www.conf
+COPY nginx-www.conf /etc/nginx/conf.d/www.conf
+COPY supervisord.conf /etc/supervisord.conf
+
+COPY start.sh /start.sh
+RUN chmod 755 /start.sh
+
+# Mime types are used by symfony to load and deliver legacy assets correctly
+COPY mime.types /etc/mime.types
+
+#COPY index.html /usr/share/nginx/html
+# make supervisor run in foreground
+#RUN sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf
+# tell supervisor to include relative .ini files
+
+#RUN mkdir /etc/supervisord.d
+#RUN echo [include] >> /etc/supervisord.conf
+#RUN echo 'files = /etc/supervisord.d/*.ini' >> /etc/supervisord.conf
+
+#RUN mkdir /var/www && \
+#	chown -R nginx:nginx /var/www
+
+#COPY nginx-webpack.conf /etc/nginx/conf.d/webpack.conf
+#443
+
+WORKDIR /var/www
+
+EXPOSE 80
+CMD ["/start.sh"]
+#CMD ["nginx", "-g", "daemon off;"]
+

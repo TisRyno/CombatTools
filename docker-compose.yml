@@ -1,0 +1,104 @@
+version: '3'
+
+#
+# You need to add this to your /etc/hosts
+#
+# 127.0.0.1       www.dungeonmaster-dev.com 
+#
+# Useful snippets
+# docker exec -it <ContainerId> <Command>
+#
+#
+# Start up everything
+# docker-compose up -d
+#
+# Stop only one container
+# docker-compose stop nginx
+#
+# Start only one container
+# docker-compose start nginx   OR     docker-compose up --build nginx
+#
+# Run bash in a container (which is similar to 'ssh' into)
+# docker exec -it <ContainerId> bash
+# Some container don't have bash at all, so `sh` can be used instead
+#
+# Stop everything
+# docker-compose down
+#
+# Watch logs in real time
+# docker-compose logs -f <optional container name>
+#
+
+services:
+  app:
+    build: ./docker/app
+    volumes:
+      - ./:/var/www:cached
+      #- /var/www/docker
+      - ./docker/data/static:/var/nfs/static:cached
+      - /var/www/symfony/node_modules
+      # For the database subset .. hopefully we will find a better solution soon...
+    extra_hosts:
+      officedb: 192.168.1.27
+    links:
+      # - redis
+      - mysql
+      # - queue
+      # - search
+    environment:
+      - PHP_XDEBUG_ENABLED="0" # Set 1 to enable.
+      - XDEBUG_CONFIG="idekey=PHPSTORM remote_host=docker.for.mac.localhost profiler_enable=1"
+  nginx:
+    build: ./docker/nginx/
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8401:8401"
+    volumes:
+      - ./:/var/www:ro,cached
+      - /var/www/docker
+      - ./docker/data/static/media/www:/var/nfs/static/media/www:cached
+      - ./docker/nginx/ssl:/etc/nginx/ssl:cached
+    links:
+      - app
+      - webpack
+  redis:
+    build: ./docker/redis/
+    volumes:
+      - ./docker/data/redis:/data:cached
+#    ports:
+#      - "6379:6379"
+  mysql:
+    build: ./docker/mysql/
+    volumes:
+      - ./docker/data/mysql:/var/lib/mysql:cached
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./docker:/docker:ro,cached
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_ROOT_PASSWORD=root
+  # queue:
+  #   build: ./docker/queue/
+  #   ports:
+  #   # You'll need these for the management web interface
+  #     - "15672:15672"
+  # search:
+  #   build: ./docker/elasticsearch/
+  #   volumes:
+  #     - ./docker/elasticsearch/data:/usr/share/elasticsearch/data
+  #   environment:
+  #     ES_JAVA_OPTS: "-Xms300m -Xmx300m"
+  webpack:
+    build: ./docker/webpack/
+    volumes:
+      - ./symfony:/usr/src/app:cached
+      # Do not share composer's files as it's pointless and potentially resource wasting
+      - /usr/src/app/vendor
+#  rails:
+#      build: ./docker/rails/
+#      volumes:
+#        - ./rails:/var/www/firebox/rails:cached
+#      links:
+#        - nginx:www.firebox-dev.com

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}| Dungeon Master Tools{% endblock %}</title>
+        {# METADATA #}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0">
+
+        <!-- Preconnect -->
+        {#<link href='https://www.googletagmanager.com' rel='preconnect' />#}
+        {#<link href='https://www.google-analytics.com' rel='preconnect' />#}
+        {#<link href='https://stats.g.doubleclick.net' rel='preconnect' />#}
+        {#<link href='https://static.hotjar.com' rel='preconnect' />#}
+        {#<link href='https://insights.hotjar.com' rel='preconnect' />#}
+        {#<link href='https://vars.hotjar.com' rel='preconnect' />#}
+        {#<link href='https://script.hotjar.com' rel='preconnect' />#}
+        {#<link href='https://connect.facebook.net' rel='preconnect' />#}
+        <!-- /Preconnect -->
+
+        {% block stylesheets %}{% endblock %}
+
+        {{ renderHeadAssets()|raw }}
+    </head>
+
+    <body>
+
+        {# HEADER #}
+        {% block header %}
+            {% include 'header.html.twig' %}
+        {% endblock %}
+
+        {# PAGE #}
+        <main role="main" class="container">
+            {% block body %}{% endblock %}
+        </main>
+
+        {# FOOTER #}
+        {% block footer %}
+            {% include 'footer.html.twig' %}
+        {% endblock %}
+
+        {% block prescripts %}{% endblock %}
+
+        {{ renderFooterAssets()|raw }}
+
+        {% block postscripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,36 @@
+._*
+*~
+*.~*
+.DS_Store
+.AppleDouble
+*.lnk
+
+.project
+.settings
+.buildpath
+
+*.dcu
+*.dsk
+
+nbproject*
+
+tests/_output/*
+
+# PHPStorm
+/.idea/
+appDevDebugProjectContainer.xml
+appDevDebugProjectContainerUrlGenerator.php
+
+# Just a test with docker compose atm.
+docker/mysql/data
+docker/export.sql
+docker/redis/data
+docker/elasticsearch/data
+docker/data
+
+\.php_cs\.cache
+
+# People tend to forget that `git add .` is evil.
+firebox/symfony/node_modules/.yarn-integrity
+
+\.make_config
