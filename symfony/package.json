@@ -35,7 +35,6 @@
     "gulp-sass": "2.x",
     "gulp-sourcemaps": "1.x",
     "gulp-uglify": "1.x",
-    "jquery-ui": "1.10.x",
     "node-sass": "^4.5.2",
     "postcss-loader": "^2.0.6",
     "reactify": "1.x",
