@@ -17,6 +17,8 @@ class CombatStore {
             addPlayer: this.addPlayer.bind(this),
             removePlayer: this.removePlayer.bind(this),
             startCombat: this.startCombat.bind(this),
+            endCombat: this.endCombat.bind(this),
+            movePlayerToNextRound: this.movePlayerToNextRound.bind(this),
         });
     }
 
@@ -31,15 +33,47 @@ class CombatStore {
     };
 
     startCombat() {
-        this.setState({
-            combatStarted: true
+        let { combat } = this.state;
+
+        combat = combat.map((player, i) => {
+                player.round = 0;
+            return player;
         });
+
+        this.setState({
+            combatStarted: true,
+            combat
+        });
+    }
+
+    endCombat() {
+        this.setState({
+            combatStarted: false
+        });
+    }
+
+    movePlayerToNextRound(username) {
+        let { combat } = this.state;
+
+        combat = combat.map((player, i) => {
+            if (player.name === username){
+                player.round += 1;
+            }
+            return player;
+        });
+
+        this.setState({
+            combat
+        });
+
+        Cache.set('players', combat, 60000);
     }
 
     addPlayer(username, initiative) {
         let newPlayer = {
             name: username,
-            initiative
+            initiative,
+            round: 0
         };
 
         let { combat } = this.state;
