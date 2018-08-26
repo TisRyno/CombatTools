@@ -19,6 +19,10 @@ class CombatStore {
             startCombat: this.startCombat.bind(this),
             endCombat: this.endCombat.bind(this),
             movePlayerToNextRound: this.movePlayerToNextRound.bind(this),
+            killPlayer: this.killPlayer.bind(this),
+            resurrectPlayer: this.resurrectPlayer.bind(this),
+            incrementPlayerSuccessThrow: this.incrementPlayerSuccessThrow.bind(this),
+            incrementPlayerFailedThrow: this.incrementPlayerFailedThrow.bind(this),
         });
     }
 
@@ -33,10 +37,10 @@ class CombatStore {
     };
 
     startCombat() {
-        let { combat } = this.state;
+        let {combat} = this.state;
 
         combat = combat.map((player, i) => {
-                player.round = 0;
+            player.round = 0;
             return player;
         });
 
@@ -53,10 +57,10 @@ class CombatStore {
     }
 
     movePlayerToNextRound(username) {
-        let { combat } = this.state;
+        let {combat} = this.state;
 
         combat = combat.map((player, i) => {
-            if (player.name === username){
+            if (player.name === username) {
                 player.round += 1;
             }
             return player;
@@ -69,14 +73,68 @@ class CombatStore {
         Cache.set('players', combat, 60000);
     }
 
-    addPlayer(username, initiative) {
+    incrementPlayerSuccessThrow(username) {
+        let {combat} = this.state;
+
+        combat = combat.map((player, i) => {
+            if (player.name === username) {
+                player.successThrows += 1;
+                if (player.successThrows >= 3) {
+                    player.successThrows = 0;
+                    player.isDead = false;
+                    player.failedThrows = 0;
+                }
+            }
+            return player;
+        });
+
+        this.setState({
+            combat
+        });
+
+        Cache.set('players', combat, 60000);
+
+    }
+
+    incrementPlayerFailedThrow(username) {
+        let {combat} = this.state;
+
+        let playerHasDied = false;
+
+        combat = combat.map((player, i) => {
+            if (player.name === username) {
+                player.failedThrows += 1;
+                if (player.failedThrows >= 3) {
+                    playerHasDied = true;
+                }
+            }
+            return player;
+        });
+
+        this.setState({
+            combat
+        });
+
+        Cache.set('players', combat, 60000);
+
+        if (playerHasDied) {
+            this.removePlayer(username);
+        }
+    }
+
+    addPlayer(username, initiative, healthPoints) {
         let newPlayer = {
             name: username,
             initiative,
-            round: 0
+            maxHealthPoints: healthPoints,
+            healthPoints,
+            round: 0,
+            isDead: false,
+            successThrows: 0,
+            failedThrows: 0,
         };
 
-        let { combat } = this.state;
+        let {combat} = this.state;
 
         combat.push(newPlayer);
 
@@ -88,7 +146,7 @@ class CombatStore {
     }
 
     removePlayer(username) {
-        let { combat } = this.state;
+        let {combat} = this.state;
 
         combat = combat.filter((player, i) => {
             return player.name !== username;
@@ -100,7 +158,42 @@ class CombatStore {
 
         Cache.set('players', combat, 60000);
     }
+
+    killPlayer(username) {
+        let {combat} = this.state;
+
+        combat = combat.map((player, i) => {
+            if (player.name === username) {
+                player.isDead = true;
+            }
+            return player;
+        });
+
+        this.setState({
+            combat
+        });
+
+        Cache.set('players', combat, 60000);
+    }
+
+    resurrectPlayer(username) {
+        let {combat} = this.state;
+
+        combat = combat.map((player, i) => {
+            if (player.name === username) {
+                player.isDead = false;
+            }
+            return player;
+        });
+
+        this.setState({
+            combat
+        });
+
+        Cache.set('players', combat, 60000);
+    }
 }
+
 
 let store = alt.createStore(CombatStore, 'CombatStore');
 
