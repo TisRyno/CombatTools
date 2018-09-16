@@ -34,7 +34,7 @@ class CombatToolCombatPhase extends React.Component {
     };
 
     onAdjustPlayerHealth = (playerName) => {
-    //finish doing player health percentages
+        //finish doing player health percentages
     };
 
     render() {
@@ -47,7 +47,7 @@ class CombatToolCombatPhase extends React.Component {
 
         let healthClass = 'text-success',
             healthPercentage = (currentPlayer.healthPoints / currentPlayer.maxHealthPoints) * 100;
-        
+
         if (healthPercentage <= 25) {
             healthClass = 'text-danger';
         } else if (healthPercentage > 25 && healthPercentage < 75) {
@@ -77,7 +77,7 @@ class CombatToolCombatPhase extends React.Component {
             <div>
                 <div className="row">
                     <div className="col-12 col-sm-4">
-                        <div className="card">
+                        <div className="card">{/**/}
                             <ul className="list-group list-group-flush">
                                 {this.props.combat.sort((a, b) => {
                                     return parseInt(a.initiative) < parseInt(b.initiative);
@@ -178,36 +178,6 @@ class CombatToolCombatPhase extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="modal fade show" style={{display: 'block'}}>
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Bob</h5>
-                                <button type="button" className="close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="player-initiative"
-                                    placeholder="Set Health Points"
-                                    // required={true}
-                                    // min={0}
-                                    // value={this.state.initiative}
-                                    // onChange={(e) => this.setState({initiative: e.target.value})}
-                                    // ref={(c) => this._playerInitiative = c}
-                                />
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary">Close</button>
-                                <button type="button" className="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="modal-backdrop fade show" />
             </div>
         );
 
