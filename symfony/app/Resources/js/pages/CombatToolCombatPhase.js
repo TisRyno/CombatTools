@@ -1,13 +1,25 @@
 "use strict";
 
+// todo fix combat starting with 1 player
+// todo make button for test page for characters
+// todo work out how to set up new page for myself
+// todo add in forms for character details
+
+
+
 import React from 'react';
 import CombatStoreState from '../stores/CombatStoreState';
 import CombatStore from '../stores/CombatStore';
+import ModalHealth from './ModalHealth';
 import CombatToolNoPlayers from './CombatToolNoPlayers';
 
 class CombatToolCombatPhase extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showHealthModal: false,
+            modalPlayer: null,
+        }
     }
 
     onNextPlayer = (playerName) => {
@@ -34,7 +46,16 @@ class CombatToolCombatPhase extends React.Component {
     };
 
     onAdjustPlayerHealth = (playerName) => {
-    //finish doing player health percentages
+        this.setState({
+            showHealthModal: true,
+            modalPlayer: playerName
+        });
+    };
+    onCloseHealthModal = () => {
+        this.setState({
+            showHealthModal: false,
+            modalPlayer: null
+        });
     };
 
     render() {
@@ -47,7 +68,7 @@ class CombatToolCombatPhase extends React.Component {
 
         let healthClass = 'text-success',
             healthPercentage = (currentPlayer.healthPoints / currentPlayer.maxHealthPoints) * 100;
-        
+
         if (healthPercentage <= 25) {
             healthClass = 'text-danger';
         } else if (healthPercentage > 25 && healthPercentage < 75) {
@@ -73,6 +94,8 @@ class CombatToolCombatPhase extends React.Component {
             }
         }
 
+
+
         return (
             <div>
                 <div className="row">
@@ -91,23 +114,6 @@ class CombatToolCombatPhase extends React.Component {
                                     }
                                     return <li key={i} className={`list-group-item ${statusClass}`}>
                                         {player.name}
-                                        {player.isDead === false &&
-                                        <button onClick={(e) => this.onPlayerDeath(player.name)}
-                                                className="btn btn-xs btn-outline-dark pull-right ml-1">
-                                            <span className="fa-stack">
-                                              <i className="fa fa-heart fa-stack-1x"/>
-                                              <i className="fa fa-ban fa-stack-2x text-danger"/>
-                                            </span>
-                                        </button>
-                                        }
-                                        {player.isDead &&
-                                        <button onClick={(e) => this.onPlayerLife(player.name)}
-                                                className="btn btn-xs btn-outline-dark pull-right ml-1">
-                                            <span className="fa-stack">
-                                              <i className="fa fa-heartbeat fa-stack-2x"/>
-                                            </span>
-                                        </button>
-                                        }
                                         <button onClick={(e) => this.onAdjustPlayerHealth(player.name)}
                                                 className="btn btn-outline-success btn-sm pull-right ml-1">
                                             {player.healthPoints}
@@ -121,9 +127,6 @@ class CombatToolCombatPhase extends React.Component {
                     <div className="col-12 col-sm-4">
                         <div className="card mb-5">
                             <div className="card-body">
-                                {currentPlayer.isDead &&
-                                <span className="badge badge-pill badge-danger">Dead</span>
-                                }
                                 <h2 className="text-center">{currentPlayer.name}</h2>
                                 <h1 className={`display-3 text-center ${healthClass}`}>
                                     {currentPlayer.healthPoints}/{currentPlayer.maxHealthPoints}
@@ -178,36 +181,12 @@ class CombatToolCombatPhase extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="modal fade show" style={{display: 'block'}}>
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Bob</h5>
-                                <button type="button" className="close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="player-initiative"
-                                    placeholder="Set Health Points"
-                                    // required={true}
-                                    // min={0}
-                                    // value={this.state.initiative}
-                                    // onChange={(e) => this.setState({initiative: e.target.value})}
-                                    // ref={(c) => this._playerInitiative = c}
-                                />
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary">Close</button>
-                                <button type="button" className="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="modal-backdrop fade show" />
+                {this.state.showHealthModal &&
+                    <ModalHealth
+                        onClose = {this.onCloseHealthModal}
+                        players = {this.props.combat}
+                        playerName = {this.state.modalPlayer}
+                    />}
             </div>
         );
 

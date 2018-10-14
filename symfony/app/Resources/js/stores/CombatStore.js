@@ -23,6 +23,7 @@ class CombatStore {
             resurrectPlayer: this.resurrectPlayer.bind(this),
             incrementPlayerSuccessThrow: this.incrementPlayerSuccessThrow.bind(this),
             incrementPlayerFailedThrow: this.incrementPlayerFailedThrow.bind(this),
+            adjustPlayerHealth: this.adjustPlayerHealth.bind(this),
         });
     }
 
@@ -182,6 +183,24 @@ class CombatStore {
         combat = combat.map((player, i) => {
             if (player.name === username) {
                 player.isDead = false;
+            }
+            return player;
+        });
+
+        this.setState({
+            combat
+        });
+
+        Cache.set('players', combat, 60000);
+    }
+
+    adjustPlayerHealth(username, newHealthPoints, newMaxHealthPoints) {
+        let {combat} = this.state;
+
+        combat = combat.map((player, i) => {
+            if (player.name === username) {
+                player.healthPoints = newHealthPoints;
+                player.maxHealthPoints = newMaxHealthPoints;
             }
             return player;
         });
